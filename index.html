@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RotiDal - Premium Dals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: #fff8f0;
+      color: #333;
+    }
+    header {
+      background: #e65100;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      background-color: #ff9800;
+      padding: 15px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    h2 {
+      color: #bf360c;
+      margin-bottom: 20px;
+    }
+    .dal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .dal-item {
+      background: #fff3e0;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .dal-item img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .dal-item button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #ff7043;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .dal-item .rating {
+      margin-top: 5px;
+      color: #ff9800;
+    }
+    .cart, .login, .register {
+      background: #fff0cc;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    #paymentModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 90%;
+      text-align: center;
+    }
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    input[type="text"], input[type="password"], input[type="email"] {
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    form button {
+      background: #e65100;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      width: 100%;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>RotiDal - Premium Dals</header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#products">Products</a>
+    <a href="#graph">Stats</a>
+    <a href="#cart">Cart</a>
+    <a href="#login">Login</a>
+    <a href="#register">Register</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="home">
+    <h2>Welcome to RotiDal</h2>
+    <p>Delivering protein-rich premium dals from Indian farms to your home.</p>
+  </section>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>RotiDal sources and delivers only the finest dals — natural, clean, and protein-packed for your health.</p>
+  </section>
+
+  <section id="products">
+    <h2>Our Products</h2>
+    <div class="dal-grid" id="dalList"></div>
+  </section>
+
+  <section id="graph">
+    <h2>Popular Dals by Purchase</h2>
+    <canvas id="dalChart" height="100"></canvas>
+  </section>
+
+  <section id="cart">
+    <h2>Your Cart</h2>
+    <div class="cart">
+      <ul id="cartItems"></ul>
+      <p><strong>Total: ₹<span id="cartTotal">0</span></strong></p>
+      <button onclick="openPaymentModal()">Proceed to Pay</button>
+    </div>
+  </section>
+
+  <section id="login">
+    <h2>Login</h2>
+    <div class="login">
+      <form onsubmit="event.preventDefault(); alert('Login Successful');">
+        <input type="text" placeholder="Username" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="register">
+    <h2>Register</h2>
+    <div class="register">
+      <form onsubmit="event.preventDefault(); alert('Registration Successful');">
+        <input type="text" placeholder="Full Name" required />
+        <input type="email" placeholder="Email" required />
+        <input type="password" placeholder="Password" required />
+        <button type="submit">Register</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>WhatsApp: <a href="https://wa.me/7668214746">+91 76682 14746</a></p>
+    <p>Email: <a href="gamingspray38@gmail.com">contact@rotidal.com</a></p>
+  </section>
+
+  <div id="paymentModal">
+    <div class="modal-content">
+      <h3>Payment Options</h3>
+      <p>UPI: rotidal@upi</p>
+      <p>Cash on Delivery: Available</p>
+      <p>Cards: Accepted</p>
+      <button onclick="closePaymentModal()">Close</button>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 RotiDal. All rights reserved.
+  </footer>
+
+  <script>
+    const dalProducts = [
+      { name: "Toor Dal", price: 120, image: "https://upload.wikimedia.org/wikipedia/commons/9/90/Arhar_tur_dal_in_a_bowl.jpg", rating: 4.5, purchases: 80 },
+      { name: "Moong Dal", price: 110, image: "https://upload.wikimedia.org/wikipedia/commons/c/c2/Moong_dal_in_bowl.jpg", rating: 4.2, purchases: 60 },
+      { name: "Chana Dal", price: 130, image: "https://upload.wikimedia.org/wikipedia/commons/8/87/Chana_dal.jpg", rating: 4.3, purchases: 40 },
+      { name: "Masoor Dal", price: 100, image: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Masoor_dal.jpg", rating: 4.1, purchases: 30 },
+      { name: "Urad Dal", price: 140, image: "https://upload.wikimedia.org/wikipedia/commons/f/f3/Urad_dal.jpg", rating: 4.0, purchases: 25 },
+    ];
+
+    const dalList = document.getElementById('dalList');
+    dalProducts.forEach(d => {
+      dalList.innerHTML += `
+        <div class="dal-item">
+          <img src="${d.image}" alt="${d.name}" />
+          <p>${d.name} - ₹${d.price}/kg</p>
+          <div class="rating">Rating: ${d.rating}★</div>
+          <button onclick="addToCart('${d.name}', ${d.price})">Add to Cart</button>
+        </div>`;
+    });
+
+    const ctx = document.getElementById('dalChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: dalProducts.map(d => d.name),
+        datasets: [{
+          label: 'Purchases',
+          data: dalProducts.map(d => d.purchases),
+          backgroundColor: '#ff7043'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    let cart = [];
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      updateCart();
+    }
+    function updateCart() {
+      const cartList = document.getElementById("cartItems");
+      const total = document.getElementById("cartTotal");
+      cartList.innerHTML = "";
+      let sum = 0;
+      cart.forEach((item) => {
+        sum += item.price;
+        cartList.innerHTML += `<li>${item.name} - ₹${item.price}</li>`;
+      });
+      total.textContent = sum;
+    }
+    function openPaymentModal() {
+      document.getElementById("paymentModal").style.display = "flex";
+    }
+    function closePaymentModal() {
+      document.getElementById("paymentModal").style.display = "none";
+    }
+  </script>
+</body>
+</html>
