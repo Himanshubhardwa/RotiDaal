@@ -26,20 +26,46 @@
       font-weight: bold;
     }
     nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
       background-color: #ff9800;
       padding: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
     }
-    nav a {
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
       color: white;
       text-decoration: none;
       font-weight: 600;
     }
-    nav a:hover {
+    .nav-links a:hover {
       text-decoration: underline;
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+    }
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #ff9800;
+        margin-top: 10px;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
     }
     section {
       padding: 40px 20px;
@@ -131,16 +157,18 @@
 </head>
 <body>
   <header>RotiDal - Premium Dals</header>
-
   <nav>
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#products">Products</a>
-    <a href="#graph">Stats</a>
-    <a href="#cart">Cart</a>
-    <a href="#login">Login</a>
-    <a href="#register">Register</a>
-    <a href="#contact">Contact</a>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#products">Products</a>
+      <a href="#graph">Stats</a>
+      <a href="#cart">Cart</a>
+      <a href="#login">Login</a>
+      <a href="#register">Register</a>
+      <a href="#contact">Contact</a>
+    </div>
   </nav>
 
   <section id="home">
@@ -198,7 +226,7 @@
   <section id="contact">
     <h2>Contact Us</h2>
     <p>WhatsApp: <a href="https://wa.me/7668214746">+91 76682 14746</a></p>
-    <p>Email: <a href="gamingspray38@gmail.com">contact@rotidal.com</a></p>
+    <p>Email: <a href="mailto:gamingspray38@gmail.com">contact@rotidal.com</a></p>
   </section>
 
   <div id="paymentModal">
@@ -216,6 +244,10 @@
   </footer>
 
   <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('active');
+    }
+
     const dalProducts = [
       { name: "Toor Dal", price: 120, image: "https://upload.wikimedia.org/wikipedia/commons/9/90/Arhar_tur_dal_in_a_bowl.jpg", rating: 4.5, purchases: 80 },
       { name: "Moong Dal", price: 110, image: "https://upload.wikimedia.org/wikipedia/commons/c/c2/Moong_dal_in_bowl.jpg", rating: 4.2, purchases: 60 },
